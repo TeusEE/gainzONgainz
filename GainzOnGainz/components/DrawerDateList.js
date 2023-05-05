@@ -1,16 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Pressable, FlatList } from 'react-native';
 import DietDateContext from '../contexts/DietDateContext';
-const day_conv = ['일', '월', '화', '수', '목', '금', '토'];
-const show_date = (date) => {
-  let year = String(date.getFullYear()).slice(2, )
-  let month = String(date.getMonth()+ 1)
-  month = month.length === 1? "0" + month : month 
-  let day = String(date.getDate())
-  day = day.length === 1? "0" + day : day 
-  let dayofweek = day_conv[date.getDay()]
-  return `${year}/${month}/${day}/${dayofweek}`
-}
+import DrawerDataItem from './DrawerDateItem';
+import { DrawerItem } from '@react-navigation/drawer';
 
 const VerticalSep = () => {
   return (
@@ -22,9 +14,6 @@ const VerticalSep = () => {
     />
   )
 }
-
-
-
 
 const DrawerDateList = () => {
   const {dietdate, setDietdate} = useContext(DietDateContext)
@@ -39,7 +28,7 @@ const DrawerDateList = () => {
   })
   const [dietdatelist, setDietdatalist] = useState(temp_dt)
   const change_dietdate = (props) => {
-    setDietdate(props.item.dt)
+    setDietdate(props.dt)
   }
 
   useEffect(() => {
@@ -52,52 +41,33 @@ const DrawerDateList = () => {
     })
     setDietdatalist(next_temp_dt)
   }, [dietdate])
-    return (
-      <View style={styles.block}>
-        <FlatList
-          data = {dietdatelist}
-          horizontal= {true}
-          showsHorizontalScrollIndicator={false}
-          ItemSeparatorComponent = {VerticalSep}
-          renderItem={(item)=>{
-            if (item.item.focus === true){
-              return (
-                <Pressable onTouchStart={()=>change_dietdate(item)}>
-                  <Text style = {styles.test_text_focus}>{show_date(item.item.dt)}</Text>
-                </Pressable>
-              )
-            } else {
-              return (
-                <Pressable onTouchStart={()=>change_dietdate(item)}>
-                  <Text style = {styles.test_text}>{show_date(item.item.dt)}</Text>
-                </Pressable>
-              )
-            }
-            
-          }}
-
-        />        
-      </View>
-    );
-  }
+  return (
+    <View style={styles.block}>
+      <FlatList
+        data = {dietdatelist}
+        horizontal= {true}
+        showsHorizontalScrollIndicator={false}
+        ItemSeparatorComponent = {VerticalSep}
+        renderItem={({item})=>(
+            <DrawerDataItem 
+              item = {item}
+              change_dietdate = {change_dietdate}
+            />                       
+        )}
+      />        
+    </View>
+  );
+}
 
 
   
-  const styles = StyleSheet.create({
-    block: {
-      flexDirection : "row",
-      padding : 16,
-      alignItems : "center",
-      backgroundColor : "mediumseagreen",
-    },
-    test_text:{
-      fontSize : 16,
-      color : "gray"
-    },
-    test_text_focus : {
-      fontSize : 16,
-      color : "black"
-    }
-  });
-  
-  export default DrawerDateList;
+const styles = StyleSheet.create({
+  block: {
+    flexDirection : "row",
+    padding : 16,
+    alignItems : "center",
+    backgroundColor : "mediumseagreen",
+  },
+});
+
+export default DrawerDateList;
