@@ -1,10 +1,24 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View, Pressable, FlatList } from 'react-native';
+import DietDateContext from '../contexts/DietDateContext';
 
 const DrawerDate = () => {
+  const {dietdate, setDietdate} = useContext(DietDateContext)
+  const temp_dt = [dietdate,dietdate,dietdate,dietdate]
     return (
       <View style={styles.block}>
-        <Text style = {styles.test_text}>DrawerDate!</Text>
+        <FlatList
+          data = {temp_dt}
+          horizontal= {true}
+          renderItem={(item)=>{
+            return (
+              <Pressable onTouchStart={()=>console.log("hello")}>
+                <Text style = {styles.test_text}>{dietdate.toDateString()}</Text>
+              </Pressable>
+            )
+          }}
+
+        />        
       </View>
     );
   }
