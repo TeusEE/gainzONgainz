@@ -88,7 +88,7 @@ const DrawerDateList = () => {
       flexDirection : "row",
       padding : 16,
       alignItems : "center",
-      backgroundColor : "cyan",
+      backgroundColor : "mediumseagreen",
     },
     test_text:{
       fontSize : 16,
