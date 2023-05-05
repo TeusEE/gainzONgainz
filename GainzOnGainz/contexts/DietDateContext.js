@@ -5,7 +5,8 @@ import { createContext, useState } from 'react';
 const DietDateContext = createContext();
 
 export const DietDateContextProvider = ({children}) => {
-    const [dietdate, setDietdate] = useState(new Date())
+    let temp = new Date()
+    const [dietdate, setDietdate] = useState(temp)
     return (
         <DietDateContext.Provider value = {{dietdate, setDietdate}}>
             {children}
