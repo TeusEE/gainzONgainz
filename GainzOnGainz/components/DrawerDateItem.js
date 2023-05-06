@@ -12,19 +12,11 @@ const show_date = (date) => {
 }
 
 const DrawerDataItem = ({item, change_dietdate}) => {
-    if (item.focus === true){
-        return (
-          <Pressable onTouchStart={()=>change_dietdate(item)}>
-            <Text style = {styles.test_text_focus}>{show_date(item.dt)}</Text>
-          </Pressable>
-        )
-      } else {
-        return (
-          <Pressable onTouchStart={()=>change_dietdate(item)}>
-            <Text style = {styles.test_text}>{show_date(item.dt)}</Text>
-          </Pressable>
-        )
-      }
+  return (
+    <Pressable onTouchStart={()=>change_dietdate(item)}>
+      <Text style = {item.focus ? styles.test_text_focus : styles.test_text}>{show_date(item.dt)}</Text>
+    </Pressable>
+  )
 }
 
 const styles = StyleSheet.create({
