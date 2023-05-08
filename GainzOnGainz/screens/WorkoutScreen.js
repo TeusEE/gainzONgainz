@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import {Text, StyleSheet, View} from 'react-native';
 
 function WorkoutScreen() {
   return (
@@ -11,7 +11,7 @@ function WorkoutScreen() {
 
 const styles = StyleSheet.create({
   block: {
-    flex:1
+    flex: 1,
   },
 });
 

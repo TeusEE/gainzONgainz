@@ -1,13 +1,15 @@
 import React, {useContext} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import DrawerDateList from './../components/DrawerDateList'
-import DietDateContext, {DietDateContextProvider} from '../contexts/DietDateContext';
+import {StyleSheet, Text, View} from 'react-native';
+import DrawerDateList from './../components/DrawerDateList';
+import DietDateContext, {
+  DietDateContextProvider,
+} from '../contexts/DietDateContext';
 
 function DietScreen() {
   return (
     <View style={styles.block}>
-      <DietDateContextProvider>      
-        <DrawerDateList/>
+      <DietDateContextProvider>
+        <DrawerDateList />
         <Text>DietScreen</Text>
       </DietDateContextProvider>
     </View>
@@ -15,8 +17,7 @@ function DietScreen() {
 }
 
 const styles = StyleSheet.create({
-  block: {
-  },
+  block: {},
 });
 
 export default DietScreen;

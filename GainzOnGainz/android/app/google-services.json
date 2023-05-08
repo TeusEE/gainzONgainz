@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "214295647382",
+    "project_id": "gainzongainz-21665",
+    "storage_bucket": "gainzongainz-21665.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214295647382:android:1c00ad61fe6127fa675eb7",
+        "android_client_info": {
+          "package_name": "com.gainzongainz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214295647382-ubl4c8bj4h56lqtataag7t3bu9lfs1eg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gainzongainz",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "214295647382-6ape5sdldpingfjrbjieusmsc2uhbfqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHV96u-SLqIeWV1zWTNxX7N5KSZw51U9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214295647382-6ape5sdldpingfjrbjieusmsc2uhbfqh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "214295647382-a5jfdte85nlvc718pmbhlp30hcrtfb7a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.GainzOnGainz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
