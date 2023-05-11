@@ -1,6 +1,5 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import DietScreen from './DietScreen';
 import DietStackNavigator from './DietStackNavigator';
 import WorkoutScreen from './WorkoutScreen';
 import HomeScreen from './HomeScreen';
