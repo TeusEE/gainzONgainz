@@ -1,11 +1,15 @@
 import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
+import WorkoutList from '../components/WorkoutList';
+import { WorkoutContextProvider } from '../contexts/WorkoutContext';
 
 function WorkoutScreen() {
   return (
-    <View style={styles.block}>
-      <Text>WorkoutScreen</Text>
-    </View>
+    <WorkoutContextProvider>
+      <View style={styles.block}>
+        <WorkoutList/>
+      </View>
+    </WorkoutContextProvider>
   );
 }
 
