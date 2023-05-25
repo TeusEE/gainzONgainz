@@ -6,7 +6,9 @@ const WorkoutContext = createContext();
 
 export const WorkoutContextProvider = ({children}) => {
     let workoutList=[];
+
     const [workout, setWorkout] = useState(workoutList)
+
     return (
         <WorkoutContext.Provider value = {{workout, setWorkout}}>
             {children}

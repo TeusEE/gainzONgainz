@@ -13,7 +13,10 @@ function DietScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  block: {},
+  block: {
+    flex:1,
+    backgroundColor:"#FFF"
+  },
 });
 
 export default DietScreen;
