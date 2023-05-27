@@ -1,6 +1,8 @@
 import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import DietDateContext from '../contexts/DietDateContext';
+import AsyncStorage from '@react-native-community/async-storage';
+
 const day_conv = ['일', '월', '화', '수', '목', '금', '토'];
 const show_date = (date) => {
   let year = String(date.getFullYear());
@@ -14,6 +16,22 @@ const show_date = (date) => {
   return `${year}년 ${month}월 ${day}일 (${dayofweek}) ${hour}:${minute}`;
 };
 
+const async_save = async (day, data) => {
+    console.log(day, data)
+    let data_form = {
+        'date' : "",
+        'time' : "",
+        'data' : ""
+    }
+    try {
+      await AsyncStorage.setItem(String(day), JSON.stringify(data));
+      console.log("save complete")
+    } catch (e) {
+      // 오류 예외 처리
+      console.log(e)
+    }
+}
+
 
 const DietScreen = () => {
     const {dietdate} = useContext(DietDateContext)
@@ -25,7 +43,7 @@ const DietScreen = () => {
                     <Text>{show_date(dietdate)}</Text>
                 </View>
                 <View style = {styles.buttonstyle}>
-                    <Button title = "Save" onPress={()=>{}}/>
+                    <Button title = "Save" onPress={()=>async_save(dietdate,value)}/>
                 </View>
             </View>
             <View style = {styles.block2}>
