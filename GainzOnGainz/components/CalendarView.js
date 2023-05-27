@@ -33,9 +33,7 @@ function CalendarView() {
       selected:true,
       ...workoutDateMarking
     }
-  }
-  console.log(test_date)
-  
+  }  
   return(
     <Calendar
       style={styles.calendar}
