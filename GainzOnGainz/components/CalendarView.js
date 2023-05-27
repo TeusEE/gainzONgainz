@@ -1,9 +1,54 @@
-import React from 'react';
+import React, { useContext } from "react";
 import {Calendar} from 'react-native-calendars';
 import {StyleSheet} from 'react-native';
+import WorkoutContext from "../contexts/WorkoutContext";
+const get_date_aysnc = () => {
+  const markedDates = {
+    '2023-05-17': {
+      marked: true,
+    },
+    '2023-05-18': {
+      marked: true,
+    },
+    '2023-05-19': {
+      marked: true,
+    },
+    '2023-05-23': {
+      marked: true,
+    },
+  };
+  return markedDates 
+}
+
 
 function CalendarView() {
-  return <Calendar style={styles.calendar} />;
+  const {workoutDate, setWorkoutDate} = useContext(WorkoutContext)
+  let test_date = get_date_aysnc()
+  let is_marked_date = (Object.keys(test_date).includes(workoutDate)) 
+  test_date = {
+    ...test_date,
+    [workoutDate] : {
+      selected:true,
+      marked : is_marked_date
+    }
+  }
+
+  
+  return(
+    <Calendar
+      style={styles.calendar}
+      markedDates = {test_date}
+      onDayPress = {(day) => {
+        setWorkoutDate(day.dateString)
+      }}
+      theme = {{
+        selectedDayBackgroundColor: '#009688',
+        arrowColor: '#009688',
+        dotColor: '#009688',
+        todayTextColor: '#009688',
+      }}
+    />
+  )
 }
 
 const styles = StyleSheet.create({
