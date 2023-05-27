@@ -8,7 +8,7 @@ function WorkoutList() {
     const {workout, setWorkout} = useContext(WorkoutContext);
 
     return (
-        <View style={styles.block}>
+        <View>
             <View style={styles.dateLineContainer}>
                 <Separator/>
                 <Text style={styles.dateText}>일, 3월 25</Text>
@@ -42,10 +42,6 @@ const Separator = () => (
 );
 
 const styles = StyleSheet.create({
-    block:{
-        flex:1,
-        backgroundColor:"#FFF"
-    },
     listContiner:{
         flex:1,
         marginHorizontal:26,

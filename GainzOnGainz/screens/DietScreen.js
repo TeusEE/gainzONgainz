@@ -4,7 +4,7 @@ import DrawerDateList from './../components/DrawerDateList';
 
 function DietScreen({navigation}) {
   return (
-    <View style={styles.block}>  
+    <View style={styles.block}>
       <DrawerDateList />
       <Text>DietScreen</Text>
       <Button title="Add My Diet" onPress={() => navigation.navigate('Add')} />
@@ -13,7 +13,10 @@ function DietScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  block: {},
+  block: {
+    flex:1,
+    backgroundColor:"#FFF"
+  },
 });
 
 export default DietScreen;
