@@ -3,6 +3,7 @@ import {Calendar} from 'react-native-calendars';
 import {StyleSheet} from 'react-native';
 import WorkoutContext from "../contexts/WorkoutContext";
 const get_date_aysnc = () => {
+  //todo
   const markedDates = {
     '2023-05-17': {
       marked: true,
@@ -24,15 +25,16 @@ const get_date_aysnc = () => {
 function CalendarView() {
   const {workoutDate, setWorkoutDate} = useContext(WorkoutContext)
   let test_date = get_date_aysnc()
-  let is_marked_date = (Object.keys(test_date).includes(workoutDate)) 
+  let is_marked_date = (Object.keys(test_date).includes(workoutDate))
+  let workoutDateMarking = is_marked_date ? {marked : is_marked_date} : {}
   test_date = {
     ...test_date,
     [workoutDate] : {
       selected:true,
-      marked : is_marked_date
+      ...workoutDateMarking
     }
   }
-
+  console.log(test_date)
   
   return(
     <Calendar
