@@ -1,7 +1,7 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import DietStackNavigator from './DietStackNavigator';
-import WorkoutScreen from './WorkoutScreen';
+import WorkoutStackNavigator from './WorkoutStackNavigator';
 import HomeScreen from './HomeScreen';
 
 const drawer = createDrawerNavigator();
@@ -21,7 +21,7 @@ const DrawerNavigator = () => {
       />
       <drawer.Screen
         name="workout"
-        component={WorkoutScreen}
+        component={WorkoutStackNavigator}
         options={{title: '운동'}}
       />
     </drawer.Navigator>
