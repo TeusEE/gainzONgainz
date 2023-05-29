@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
 import DietDateContext from '../contexts/DietDateContext';
-import DrawerDataItem from './DrawerDateItem';
+import DrawerDataListItem from './DrawerDateListItem';
 
 const VerticalSep = () => {
   return <View style={{padding: 10, width: 3}} />;
@@ -47,7 +47,7 @@ const DrawerDateList = () => {
         showsHorizontalScrollIndicator={false}
         ItemSeparatorComponent={VerticalSep}
         renderItem={({item}) => (
-          <DrawerDataItem item={item} change_dietdate={change_dietdate} />
+          <DrawerDataListItem item={item} change_dietdate={change_dietdate} />
         )}
       />
     </View>
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 16,
     alignItems: 'center',
-    backgroundColor: 'mediumseagreen',
   },
 });
 
