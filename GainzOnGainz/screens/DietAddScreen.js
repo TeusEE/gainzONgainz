@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import DietDateContext from '../contexts/DietDateContext';
 import {format} from 'date-fns';
 import AsyncStorage from '@react-native-community/async-storage';
+import ImagePickerItem from '../components/ImagePicker';
 
 const day_conv = ['일', '월', '화', '수', '목', '금', '토'];
 const show_date = (date) => {
@@ -91,9 +92,9 @@ const DietScreen = () => {
                     style = {{textAlign : "left",textAlignVertical: 'top'}}
                 />
             </View>
-            <Text>
-                카 메 라
-            </Text>
+            <View style={styles.footer}>
+                <ImagePickerItem/>
+            </View>
         </>
     )
 }
@@ -125,6 +126,11 @@ const styles = StyleSheet.create({
     block2 : {
         backgroundColor : "white",
         padding : 12
+    },
+    footer:{
+        height: 120,
+        paddingLeft: 20,
+        backgroundColor:"#FFF"
     }
 });
 
