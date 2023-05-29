@@ -32,7 +32,7 @@ const async_load = async (debug = false) => {
     
 }
 
-const async_save = async (day, data) => {
+const async_save = async (day, data, navi) => {
     let temp = await async_load()
     temp = JSON.parse(temp)??{}
     _date = format(day, "yyyy-MM-dd")
@@ -49,6 +49,7 @@ const async_save = async (day, data) => {
     try {
       await AsyncStorage.setItem('dietdata', JSON.stringify(data_form));
       console.log("save complete")
+      navi.navigate("Diet")
     } catch (e) {
       // 오류 예외 처리
       console.log(e)
@@ -65,7 +66,7 @@ const async_clear = async () => {
 }
 
 
-const DietScreen = () => {
+const DietScreen = ({navigation}) => {
     const {dietdate} = useContext(DietDateContext)
     const [value, onChangeText] = useState(`식단을 입력하세요`)
     return (
@@ -79,7 +80,7 @@ const DietScreen = () => {
                 </View>
 
                 <View style = {styles.buttonstyle}>
-                    <Button title = "Save" onPress={()=>async_save(dietdate,value)}/>
+                    <Button title = "Save" onPress={()=>async_save(dietdate,value,navigation)}/>
                 </View>
             </View>
             <View style = {styles.block2}>

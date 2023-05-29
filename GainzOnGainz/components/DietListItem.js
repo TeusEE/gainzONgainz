@@ -1,43 +1,47 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, View, FlatList, Text} from 'react-native';
-const Separator = () => (
-  <View style={styles.verticleLine}/>
-);
+import {StyleSheet, View, FlatList, Text, Pressable} from 'react-native';
+const update_data = async () => {
+  //todo
+  //데이터 삭제하기 or 수정하기 기능 구현필요
+}
+
 
 const DietListItem = ({time, data}) => {
+  let dis_time = time.substring(0, 2) + "시" + time.substring(3, 5) + "분"
   return (
-    <View style={styles.block}>
-      <Text style = {styles.time}>
-        {time}
-      </Text>
-      <Separator/>
-      <Text style = {styles.content}>
-        {data}
-      </Text>
-    </View>
+    <Pressable
+     onPress={() => {update_data()}}>
+      <View style={styles.block}>
+        <Text style = {styles.time}>
+          {dis_time}
+        </Text>
+        <Text style = {styles.content}>
+          {data}
+        </Text>
+      </View>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   block: {
-    flexDirection : "row",
     paddingVertical : 10,
+    marginBottom : 8,
+    marginHorizontal : 16,
+    borderColor : 'black',
+    borderWidth : 1.5,
+    borderRadius : 16
   },
   time : {
-    flex : 1,
     fontSize : 24,
-    textAlign : "center"
+    paddingLeft : 10,
+    textAlign : "left"
   },
   content : {
-    flex : 2,
-    paddingLeft : 15,
-    fontSize : 16
+    marginTop : 5,
+    paddingLeft : 25,
+    fontSize : 14
   },
-  verticleLine: {
-    height: '100%',
-    width: 6,
-    backgroundColor: '#000000',
-  }
 });
 
 export default DietListItem;

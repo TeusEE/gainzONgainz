@@ -8,7 +8,9 @@ function DietScreen({navigation}) {
     <View style={styles.block}>
       <DrawerDateList />
       <DietList/>
-      <Button title="Add My Diet" onPress={() => navigation.navigate('Add')} />
+      <View style = {{marginTop : 10}}>
+        <Button title="Add My Diet" onPress={() => navigation.navigate('Add')} />
+      </View>
     </View>
   );
 }
