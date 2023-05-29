@@ -15,7 +15,7 @@ function WorkoutScreen() {
         <WorkoutList/>
       </View>
       <View style={styles.footer}>
-          <ImagePickerItem/>
+        <ImagePickerItem/>
       </View>
     </WorkoutContextProvider>
   );

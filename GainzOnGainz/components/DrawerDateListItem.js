@@ -24,7 +24,7 @@ const show_date = (date, ddd) => {
   }
 };
 
-const DrawerDataItem = ({item, change_dietdate}) => {
+const DrawerDataListItem = ({item, change_dietdate}) => {
   const [day, dayofweek] = [show_date(item.dt, "d"), show_date(item.dt, "dow")]
   return (
     <Pressable onTouchStart={() => change_dietdate(item)}>
@@ -63,4 +63,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DrawerDataItem;
+export default DrawerDataListItem;
