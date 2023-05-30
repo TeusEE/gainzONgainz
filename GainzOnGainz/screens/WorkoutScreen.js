@@ -18,7 +18,7 @@ function WorkoutScreen({navigation}) {
         <ImagePickerItem/>
       </View>
       <Button
-        title="운동 화면 이동"
+        title="운동 추가 화면 이동"
         onPress={() => navigation.navigate('add')}
       />
     </WorkoutContextProvider>
