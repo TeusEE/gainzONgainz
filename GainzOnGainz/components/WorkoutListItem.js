@@ -3,7 +3,7 @@ import {Text, StyleSheet, View} from 'react-native';
 
 function WorkoutListItem({type, name, weight, count}) {
     return (
-        <View style={styles.container}>
+        <View style={styles.block}>
             <View style={styles.workTypeContiner}>
                 <Text style={styles.workTypeText}>가슴</Text>
             </View>
@@ -17,7 +17,7 @@ function WorkoutListItem({type, name, weight, count}) {
 }
 
 const styles = StyleSheet.create({
-    container:{
+    block:{
         flex:1,
         flexDirection: 'row',
         alignItems: 'center',
