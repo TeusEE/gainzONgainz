@@ -6,10 +6,14 @@ const WorkoutContext = createContext();
 export const WorkoutContextProvider = ({children}) => {
     let workoutList=[];
     let today = new Date()
+    const [image, setImage] = useState('')
     const [workout, setWorkout] = useState(workoutList)
     const [workoutDate, setWorkoutDate] = useState(format(today, 'yyyy-MM-dd'))
     return (
-        <WorkoutContext.Provider value = {{workout, setWorkout, workoutDate, setWorkoutDate}}>
+        <WorkoutContext.Provider value = {{
+            image, setImage,
+            workout, setWorkout, 
+            workoutDate, setWorkoutDate}}>
             {children}
         </WorkoutContext.Provider>
     );
