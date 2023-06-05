@@ -32,7 +32,7 @@ const async_load = async (debug = false) => {
     
 }
 
-const async_save = async (day, data, navi) => {
+const async_save = async (day, data,image, navi) => {
     let temp = await async_load()
     temp = JSON.parse(temp)??{}
     _date = format(day, "yyyy-MM-dd")
@@ -42,7 +42,10 @@ const async_save = async (day, data, navi) => {
         ...temp,
         [_date] : {
             ...pre_data,
-            [_time] : data
+            [_time] : {
+                "food" : data,
+                "photo" : image,
+            },
         }
     }
     
@@ -67,7 +70,7 @@ const async_clear = async () => {
 
 
 const DietScreen = ({navigation}) => {
-    const {dietdate} = useContext(DietDateContext)
+    const {dietdate, image} = useContext(DietDateContext)
     const [value, onChangeText] = useState(`식단을 입력하세요`)
     return (
         <>
@@ -80,7 +83,7 @@ const DietScreen = ({navigation}) => {
                 </View>
 
                 <View style = {styles.buttonstyle}>
-                    <Button title = "Save" onPress={()=>async_save(dietdate,value,navigation)}/>
+                    <Button title = "Save" onPress={()=>async_save(dietdate,value,image,navigation)}/>
                 </View>
             </View>
             <View style = {styles.block2}>
@@ -94,7 +97,7 @@ const DietScreen = ({navigation}) => {
                 />
             </View>
             <View style={styles.footer}>
-                <ImagePickerItem/>
+                <ImagePickerItem context={DietDateContext}/>
             </View>
         </>
     )

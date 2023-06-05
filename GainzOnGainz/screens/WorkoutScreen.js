@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, StyleSheet, View} from 'react-native';
 import WorkoutList from '../components/WorkoutList';
 import CalendarView from '../components/CalendarView'
-import { WorkoutContextProvider } from '../contexts/WorkoutContext';
+import WorkoutContext, { WorkoutContextProvider } from '../contexts/WorkoutContext';
 import ImagePickerItem from '../components/ImagePicker';
 
 function WorkoutScreen({navigation}) {
@@ -15,7 +15,7 @@ function WorkoutScreen({navigation}) {
         <WorkoutList/>
       </View>
       <View style={styles.footer}>
-        <ImagePickerItem/>
+        <ImagePickerItem context={WorkoutContext}/>
       </View>
       <Button
         title="운동 추가 화면 이동"

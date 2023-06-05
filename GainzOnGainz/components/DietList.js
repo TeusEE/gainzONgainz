@@ -54,7 +54,9 @@ const DietList = () => {
         ItemSeparatorComponent={HorizontalSep}
         renderItem={({item}) => {
           return (
-              <DietListItem time = {item} data = {dis_data[item]}/>
+              <DietListItem time = {item} 
+                data = {dis_data[item]["food"]}
+                image = {dis_data[item]["photo"]}/>
             )
           }
         }
