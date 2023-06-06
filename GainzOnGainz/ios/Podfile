@@ -9,7 +9,6 @@ use_frameworks!
 
 target 'GainzOnGainz' do
   config = use_native_modules!
-  pod 'RNFBFirestore', :path => '../node_modules/@react-native-firebase/firestore'
   pod 'GoogleUtilities', :modular_headers => true
   
 

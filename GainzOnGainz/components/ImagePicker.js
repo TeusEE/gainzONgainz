@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 
-function ImagePickerItem() {
-    const [image, setImage] = useState('');
-
+function ImagePickerItem({context}) {
+    const {image, setImage} = useContext(context);
 
     const onPress = () => {        
         ImagePicker.openPicker({

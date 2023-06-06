@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import DietDateContext from '../contexts/DietDateContext';
 import {format} from 'date-fns';
 import AsyncStorage from '@react-native-community/async-storage';
+import ImagePickerItem from '../components/ImagePicker';
 
 const day_conv = ['일', '월', '화', '수', '목', '금', '토'];
 const show_date = (date) => {
@@ -31,7 +32,7 @@ const async_load = async (debug = false) => {
     
 }
 
-const async_save = async (day, data) => {
+const async_save = async (day, data,image, navi) => {
     let temp = await async_load()
     temp = JSON.parse(temp)??{}
     _date = format(day, "yyyy-MM-dd")
@@ -41,13 +42,17 @@ const async_save = async (day, data) => {
         ...temp,
         [_date] : {
             ...pre_data,
-            [_time] : data
+            [_time] : {
+                "food" : data,
+                "photo" : image,
+            },
         }
     }
     
     try {
       await AsyncStorage.setItem('dietdata', JSON.stringify(data_form));
       console.log("save complete")
+      navi.navigate("Diet")
     } catch (e) {
       // 오류 예외 처리
       console.log(e)
@@ -64,8 +69,8 @@ const async_clear = async () => {
 }
 
 
-const DietScreen = () => {
-    const {dietdate} = useContext(DietDateContext)
+const DietScreen = ({navigation}) => {
+    const {dietdate, image} = useContext(DietDateContext)
     const [value, onChangeText] = useState(`식단을 입력하세요`)
     return (
         <>
@@ -78,7 +83,7 @@ const DietScreen = () => {
                 </View>
 
                 <View style = {styles.buttonstyle}>
-                    <Button title = "Save" onPress={()=>async_save(dietdate,value)}/>
+                    <Button title = "Save" onPress={()=>async_save(dietdate,value,image,navigation)}/>
                 </View>
             </View>
             <View style = {styles.block2}>
@@ -91,9 +96,9 @@ const DietScreen = () => {
                     style = {{textAlign : "left",textAlignVertical: 'top'}}
                 />
             </View>
-            <Text>
-                카 메 라
-            </Text>
+            <View style={styles.footer}>
+                <ImagePickerItem context={DietDateContext}/>
+            </View>
         </>
     )
 }
@@ -125,6 +130,11 @@ const styles = StyleSheet.create({
     block2 : {
         backgroundColor : "white",
         padding : 12
+    },
+    footer:{
+        height: 120,
+        paddingLeft: 20,
+        backgroundColor:"#FFF"
     }
 });
 
