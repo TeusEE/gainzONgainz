@@ -18,7 +18,7 @@ const DietListItem = ({time, data, image}) => {
         <Text style = {styles.content}>
           {data}
         </Text>
-        { image !== undefined ?  <Image
+        { image !== "" ?  <Image
                     style={styles.imageContainer}
                     source={{uri:image}}
                   /> : <></>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     borderColor : 'black',
     borderWidth : 1.5,
     borderRadius : 16,
-    flexDirection: 'row',
+    //flexDirection: 'row',
     justifyContent : 'space-between',
   },
   time : {
