@@ -3,6 +3,7 @@ import {Button, StyleSheet, View} from 'react-native';
 import WorkoutList from '../components/WorkoutList';
 import CalendarView from '../components/CalendarView'
 import WorkoutContext, { WorkoutContextProvider } from '../contexts/WorkoutContext';
+import AddItemBtn from '../components/AddItemBtn';
 import ImagePickerItem from '../components/ImagePicker';
 
 function WorkoutScreen({navigation}) {

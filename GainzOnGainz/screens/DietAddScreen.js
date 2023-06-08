@@ -99,6 +99,7 @@ const DietScreen = ({navigation}) => {
             <View style={styles.footer}>
                 <ImagePickerItem context={DietDateContext}/>
             </View>
+            
         </>
     )
 }

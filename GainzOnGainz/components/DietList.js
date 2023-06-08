@@ -70,6 +70,8 @@ const DietList = () => {
 
 const styles = StyleSheet.create({
   block: {
+    width : "100%",
+    justifyContent : "center"
   },
   emptyList:{
     color:"#BDBDBD",
