@@ -12,7 +12,7 @@ const StackNavigator = () => {
         <DietDateContextProvider>
             <Stack.Navigator initialRouteName='Diet'>
                 <Stack.Screen options = {{headerShown: false}} name="Diet" component={DietScreen} />
-                <Stack.Screen name="Add" component={DietAddScreen} />
+                <Stack.Screen options = {{headerShown: false}} name="Add" component={DietAddScreen} />
             </Stack.Navigator>
         </DietDateContextProvider>
     );

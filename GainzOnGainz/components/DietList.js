@@ -11,7 +11,7 @@ const HorizontalSep = () => {
 };
 
 const EmptyList = () => (
-  <Text style={styles.emptyList}>Diet 내역이 없습니다{"\n"}버튼을 통해 추가해주세요</Text>
+  <Text style={styles.emptyList}>입력 내역이 없습니다{"\n"}버튼을 통해 추가해주세요</Text>
 );
 
 

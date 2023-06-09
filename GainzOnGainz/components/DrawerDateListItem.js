@@ -28,11 +28,11 @@ const DrawerDataListItem = ({item, change_dietdate}) => {
   const [day, dayofweek] = [show_date(item.dt, "d"), show_date(item.dt, "dow")]
   return (
     <Pressable onTouchStart={() => change_dietdate(item)}>
-      <View style={item.focus ? [styles.date_normal, {borderWidth : 2}] : styles.date_normal}>
+      <View style={styles.date_normal}>
         <Text style={styles.text_dayofweek}>
           {dayofweek}
         </Text>
-        <Text style={styles.text_day}>
+        <Text style={item.focus ? [ styles.text_day , styles.date_select ]: styles.text_day}>
           {day}
         </Text>
       </View>
@@ -42,24 +42,27 @@ const DrawerDataListItem = ({item, change_dietdate}) => {
 
 const styles = StyleSheet.create({
   date_normal : {
-    padding : 3,
-    paddingHorizontal : 12,
     fontSize: 16,
     color: 'black',
     alignItems : "center",
-    borderStyle : "solid",
     justifyContent : "center",        
-    borderColor : "black",
-    borderRadius : 16,
-    borderWidth: 0
+  },
+  date_select : {
+    backgroundColor : '#ECEBF1',
+    borderRadius:20,
+    color : "black",
+    overflow: 'hidden'
   },
   text_dayofweek : {
     fontSize : 14,
-    color : "black",
+    color : "#6A6B7F",
   },
   text_day : {
     fontSize : 16,
-    color : "black",
+    fontWeight:"bold",
+    color : "#9B9CAF",
+    padding:10,
+    marginTop:10,
   }
 });
 
