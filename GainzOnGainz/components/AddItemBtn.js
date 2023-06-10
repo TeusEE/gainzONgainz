@@ -1,16 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {StyleSheet, View, FlatList, Text, Pressable} from 'react-native';
+import React from 'react';
+import {StyleSheet, View, Text, Pressable} from 'react-native';
 
 
 const AddItemBtn = ({onEvent}) => {  
   return (
     <View style= {styles.outer_block}>
       <Pressable
-        style = {styles.press_block}
-        onTouchStart={() => onEvent()}
-      >
+        onTouchStart={() => onEvent()}>
         <View style={styles.block}>
-          <Text style={{fontSize:40}}>+</Text>
+          <View style={styles.circleBlock}>
+            <Text style={{fontSize:20,color:"white"}}>추가</Text>
+          </View>
         </View>
       </Pressable>
     </View>
@@ -19,23 +19,19 @@ const AddItemBtn = ({onEvent}) => {
 
 const styles = StyleSheet.create({
   outer_block : {
-    width : "100%",
-    height : "12%",
     marginVertical : 16,
+    marginHorizontal: 21
   },
-  press_block : {
-    width : "100%",
-    alignItems : "center",
+  circleBlock:{
+    backgroundColor : "#DEDEDE",
+    borderRadius : 30,
+    padding:10,
+    marginVertical:19,
   },
   block: {
-    width : "90%", 
-    backgroundColor : "#e8e8e8",
-    height : "100%",
+    backgroundColor : "#F4F4F4",
     alignItems : "center",
-    justifyContent: 'center',
     borderRadius : 16,
-    borderColor : "#e8e8e8",
-    borderWidth : 3
   },
 });
 

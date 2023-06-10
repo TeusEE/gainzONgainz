@@ -7,7 +7,7 @@ const update_data = async () => {
 
 
 const DietListItem = ({time, data, image}) => {
-  let dis_time = time.substring(0, 2) + "시" + time.substring(3, 5) + "분"
+  let dis_time = time.substring(0, 2) + ":" + time.substring(3, 5) + ""
   return (
     <Pressable
      onPress={() => {update_data()}}>
@@ -30,23 +30,30 @@ const DietListItem = ({time, data, image}) => {
 
 const styles = StyleSheet.create({
   block: {
-    paddingVertical : 10,
+    paddingVertical : 16,
+    paddingHorizontal : 12,
+    marginHorizontal : 21,
     marginBottom : 8,
-    marginHorizontal : 16,
-    borderColor : 'black',
-    borderWidth : 1.5,
+    borderColor : '#BDBDBD',
+    borderWidth : 1,
     borderRadius : 16,
-    //flexDirection: 'row',
     justifyContent : 'space-between',
+    backgroundColor:"white",
+    shadowColor: '#BDBDBD',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,  
+    elevation: 5
   },
   time : {
-    fontSize : 24,
+    fontSize : 18,
+    fontWeight:"500",
     paddingLeft : 10,
     textAlign : "left"
   },
   content : {
-    marginTop : 5,
-    paddingLeft : 25,
+    marginVertical: 8,
+    paddingLeft : 10,
     fontSize : 14
   },
   imageContainer:{
