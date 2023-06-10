@@ -37,7 +37,7 @@ const EmptyList = () => (
     <Text style={styles.emptyList}>활동 내역이 없습니다{"\n"}버튼을 통해 추가해주세요</Text>
 );
 
-const Separator = () => (
+export const Separator = () => (
     <View style={styles.separator}/>
 );
 

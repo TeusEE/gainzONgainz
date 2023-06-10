@@ -4,6 +4,8 @@ import DietDateContext from '../contexts/DietDateContext';
 import {format} from 'date-fns';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePickerItem from '../components/ImagePicker';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Separator } from '../components/WorkoutList';
 
 const day_conv = ['일', '월', '화', '수', '목', '금', '토'];
 const show_date = (date) => {
@@ -71,61 +73,87 @@ const async_clear = async () => {
 
 const DietScreen = ({navigation}) => {
     const {dietdate, image} = useContext(DietDateContext)
-    const [value, onChangeText] = useState(`식단을 입력하세요`)
+    const [value, onChangeText] = useState(``)
     return (
-        <>
-            <View style = {styles.block1}>
-                <View style = {styles.datestyle} >
-                    <Text>{show_date(dietdate)}</Text>
-                </View>
-                <View style = {styles.buttonstyle}>
-                    <Button title = "see_data" onPress={()=>async_load(debug = true)}/>
-                </View>
+        <View style={styles.mainBlock}>
+            <View>
+                <View style={styles.header}>
+                    <TouchableOpacity onPress={() => navigation.pop()} >
+                    <Text style={styles.close}>닫기</Text>
+                    </TouchableOpacity>
+                    <View style = {styles.headerRow}>
+                        <View style = {styles.datestyle} >
+                            <Text>{show_date(dietdate)}</Text>
+                        </View>
+                        <Button title = "see_data" onPress={()=>async_load(debug = true)}/>
+                
 
-                <View style = {styles.buttonstyle}>
-                    <Button title = "Save" onPress={()=>async_save(dietdate,value,image,navigation)}/>
+                        <TouchableOpacity
+                            onPress={()=>async_save(dietdate,value,image,navigation)}>
+                                <View style = {styles.buttonstyle}>
+                                    <Text style = {styles.buttonText}>저장</Text>
+                                </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-            <View style = {styles.block2}>
-                <TextInput
-                    editable
-                    multiline
-                    numberOfLines={7}
-                    onChangeText={text => onChangeText(text)}
-                    value={value}
-                    style = {{textAlign : "left",textAlignVertical: 'top'}}
-                />
+                <Separator/>
+                <View style = {styles.block2}>
+                    <TextInput
+                        editable
+                        multiline
+                        numberOfLines={7}
+                        onChangeText={text => onChangeText(text)}
+                        value={value}
+                        placeholder='식단을 입력하세요'
+                        style = {{textAlign : "left",textAlignVertical: 'top'}}
+                    />
+                </View>
             </View>
             <View style={styles.footer}>
                 <ImagePickerItem context={DietDateContext}/>
             </View>
-        </>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
-    block1: {
+    mainBlock:{
+        flex:1,
         backgroundColor : "white",
-        height : 64,
+        justifyContent : 'space-between',
+    },
+    header: {
         paddingHorizontal : 24,
-        flexDirection: 'row',
+        paddingVertical:12
+    },
+    headerRow:{
         alignItems: 'center',
+        flexDirection: 'row',
         justifyContent : 'space-between',
     },
     datestyle : {
-        height : 36,
-        padding : 5,
         alignItems : "center",
         borderStyle : "solid",
         justifyContent : "center",        
         borderColor : "black",
+        fontSize:16,
+        fontWeight:"500",
+        paddingHorizontal : 11,
+        paddingVertical:4,
         borderRadius : 16,
-        borderWidth: 2
+        borderWidth: 1
     },
     buttonstyle : {
-        height : 36,
         alignItems : "center",
+        backgroundColor:"black",
         borderRadius : 16,
+        paddingHorizontal:21,
+        paddingVertical:6
+    },
+    buttonText:{
+        color:"white",
+        fontSize:16,
+        fontWeight:"600"
     },
     block2 : {
         backgroundColor : "white",
