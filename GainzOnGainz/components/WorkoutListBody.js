@@ -1,18 +1,9 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, Modal, TouchableOpacity } from 'react-native';
 
-function WorkoutListAdd({ type, name, weight, count }) {
-  const [modalVisible, setModalVisible] = useState(false);
+function WorkoutListAddBody({ onClose }) {
   const [selectedType, setSelectedType] = useState('');
   const [selectedSubType, setSelectedSubType] = useState('');
-
-  const openModal = () => {
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-  };
 
   const handleTypeSelection = (type) => {
     setSelectedType(type);
@@ -25,11 +16,7 @@ function WorkoutListAdd({ type, name, weight, count }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={openModal}>
-        <Text style={styles.text}>운동 분위 선택</Text>
-      </TouchableOpacity>
-
-      <Modal visible={modalVisible} animationType="slide">
+      <Modal animationType="slide">
         <View style={styles.modalContainer}>
           <Text style={styles.modalHeaderText}>운동 분위 선택</Text>
 
@@ -51,7 +38,7 @@ function WorkoutListAdd({ type, name, weight, count }) {
             </View>
           )}
 
-          <TouchableOpacity onPress={closeModal}>
+          <TouchableOpacity onPress={onClose}>
             <Text style={styles.closeButtonText}>닫기</Text>
           </TouchableOpacity>
         </View>
@@ -118,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WorkoutListAdd
+export default WorkoutListAddBody;
