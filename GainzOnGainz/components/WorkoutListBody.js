@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, Modal, TouchableOpacity } from 'react-native';
 
-function WorkoutListItem({ type, name, weight, count }) {
+function WorkoutListAdd({ type, name, weight, count }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedType, setSelectedType] = useState('');
   const [selectedSubType, setSelectedSubType] = useState('');
@@ -117,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Workout
+export default WorkoutListAdd
