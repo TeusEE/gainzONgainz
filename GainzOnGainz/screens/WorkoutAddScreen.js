@@ -1,10 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
 import WorkoutAddListItem from '../components/WorkoutAddListItem';
+import WorkoutListAddBody from '../components/WorkoutListBody';
 
 function WorkoutAddScreen({navigation}) {
+  const [isVisible, setIsVisible] = useState(false);
+    const toggleVisibility = () => {
+        setIsVisible(!isVisible);
+    };
+
   return (
     <View style={styles.body}>
+      { 
+        isVisible && <WorkoutListAddBody onClose={toggleVisibility}/>
+      }
       <View style={styles.listView}>
         <TouchableOpacity onPress={() => navigation.pop()} >
           <Text style={styles.close}>닫기</Text>
@@ -18,9 +27,11 @@ function WorkoutAddScreen({navigation}) {
       <View style={styles.separator}/>
       <View style={styles.block}>
         <View style={styles.workoutGroupView}>
-          <View style={styles.workoutGroup}>
-            <Text style={styles.workoutGroupText}>상체</Text>
-          </View>
+          <TouchableOpacity onPress={toggleVisibility}>
+            <View style={styles.workoutGroup}>
+              <Text style={styles.workoutGroupText}>상체</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.workoutType}>
             <Text style={styles.workoutTypeText}>가슴</Text>
           </View>
