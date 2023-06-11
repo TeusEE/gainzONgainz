@@ -60,6 +60,7 @@ function WorkoutListAdd({ type, name, weight, count }) {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

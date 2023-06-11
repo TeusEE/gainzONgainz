@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 
-function WorkoutListItem({ type, name, weight, count }) {
+function WorkoutListAdd({ type, name, weight, count }) {
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default WorkoutListItem;
+export default WorkoutListAdd;
