@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Modal, View, Pressable, Text,FlatList,TouchableOpacity} from 'react-native';
 
-function WorkoutTypeModal({visible, onClose}) {
+function WorkoutTypeModal({value, visible, onClose}) {
   return (
     <Modal
       visible={visible}
@@ -11,7 +11,7 @@ function WorkoutTypeModal({visible, onClose}) {
       <Pressable style={styles.background} onPress={() => onClose('')}>
         <View style={styles.whiteBox}>
             <FlatList
-                data={["상체","하체","유산소"]}
+                data={value}
                 renderItem={({item}) => (
                     <TouchableOpacity
                       onPress={() => onClose(item)}

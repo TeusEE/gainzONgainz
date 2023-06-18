@@ -7,10 +7,38 @@ function WorkoutAddScreen({navigation}) {
   const [workoutType, setWorkoutType] = useState('상체');
   const [workoutSubType, setWorkoutSubType] = useState('어깨');
   const [modalVisible, setModalVisible] = useState(false);
+  const [mainType, setMainType] = useState(true);
 
   const type = ["상체","하체","유산소"];
+  const subTypeMap = {
+    "상체":[
+      "어깨",
+      "등",
+      "가슴",
+      "팔",
+      "복부",
+    ],
+    "하체":[
+      "엉덩이",
+      "허벅지 앞",
+      "허벅지 뒤",
+      "허벅지 안",
+      "종아리"
+    ],
+    "유산소":[
+      "런닝머신",
+      "자전거",
+      "천국의 계단",
+      "스텝머신",
+      "일렉티컬",
+      "기타"
+    ]
+  };
 
-  const onTypePress = () => {
+  const onTypePress = (isMainType) => {
+    setMainType(isMainType);
+    var typeData = isMainType ? type : subTypeMap[workoutType]
+
     if (Platform.OS === 'android') {
       setModalVisible(true);
       return;
@@ -18,12 +46,17 @@ function WorkoutAddScreen({navigation}) {
 
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        options: [...type, '취소'],
-        cancelButtonIndex: type.length,
+        options: [...typeData, '취소'],
+        cancelButtonIndex: typeData.length,
       },
       (buttonIndex) => {
-        if(buttonIndex != type.length){
-          setWorkoutType(type[buttonIndex]);
+        if(buttonIndex != typeData.length){
+          if(isMainType){
+            setWorkoutType(typeData[buttonIndex]);
+            setWorkoutSubType(subTypeMap[typeData[buttonIndex]][0]);
+          }else{
+            setWorkoutSubType(typeData[buttonIndex]);
+          }
         }
       },
     );
@@ -32,11 +65,17 @@ function WorkoutAddScreen({navigation}) {
   return (
     <View style={styles.body}>
       <WorkoutTypeModal
+        value = {mainType ? type : subTypeMap[workoutType]}
         visible={modalVisible}
-        onClose={(type) => {
+        onClose={(workoutType) => {
           setModalVisible(false);
-          if(type != ''){
-            setWorkoutType(type);
+          if(workoutType != ''){
+            if(mainType){
+              setWorkoutType(workoutType);
+              setWorkoutSubType(subTypeMap[workoutType][0]);
+            }else{
+              setWorkoutSubType(workoutType);
+            }
           }
         }}
       />
@@ -53,14 +92,16 @@ function WorkoutAddScreen({navigation}) {
       <View style={styles.separator}/>
       <View style={styles.block}>
         <View style={styles.workoutGroupView}>
-          <TouchableOpacity onPress={onTypePress}>
+          <TouchableOpacity onPress={()=> onTypePress(true)}>
             <View style={styles.workoutGroup}>
               <Text style={styles.workoutGroupText}>{workoutType}</Text>
             </View>
           </TouchableOpacity>
-          <View style={styles.workoutType}>
-            <Text style={styles.workoutTypeText}>{workoutSubType}</Text>
-          </View>
+          <TouchableOpacity onPress={()=> onTypePress(false)}>
+            <View style={styles.workoutType}>
+              <Text style={styles.workoutTypeText}>{workoutSubType}</Text>
+            </View>
+          </TouchableOpacity>
         </View>
         <TextInput 
             style={styles.workoutTitle}
