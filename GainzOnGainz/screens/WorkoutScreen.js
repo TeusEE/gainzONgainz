@@ -1,9 +1,10 @@
 import React from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import { StyleSheet, View} from 'react-native';
 import WorkoutList from '../components/WorkoutList';
 import CalendarView from '../components/CalendarView'
 import WorkoutContext, { WorkoutContextProvider } from '../contexts/WorkoutContext';
 import ImagePickerItem from '../components/ImagePicker';
+import AddItemBtn from '../components/AddItemBtn';
 
 function WorkoutScreen({navigation}) {
   return (
@@ -13,14 +14,11 @@ function WorkoutScreen({navigation}) {
       </View>
       <View style={styles.block}>
         <WorkoutList/>
+        <AddItemBtn onEvent={() => navigation.navigate('add')} />
       </View>
       <View style={styles.footer}>
         <ImagePickerItem context={WorkoutContext}/>
       </View>
-      <Button
-        title="운동 추가 화면 이동"
-        onPress={() => navigation.navigate('add')}
-      />
     </WorkoutContextProvider>
   );
 }

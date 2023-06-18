@@ -1,19 +1,45 @@
-import React, {useState} from 'react';
-import {Text, StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import React, { useEffect, useState} from 'react';
+import {Text, StyleSheet, View, TextInput, TouchableOpacity,ActionSheetIOS} from 'react-native';
 import WorkoutAddListItem from '../components/WorkoutAddListItem';
-import WorkoutListAddBody from '../components/WorkoutListBody';
+import WorkoutTypeModal from '../components/WorkoutTypeModal';
 
 function WorkoutAddScreen({navigation}) {
-  const [isVisible, setIsVisible] = useState(false);
-    const toggleVisibility = () => {
-        setIsVisible(!isVisible);
-    };
+  const [workoutType, setWorkoutType] = useState('상체');
+  const [workoutSubType, setWorkoutSubType] = useState('어깨');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const type = ["상체","하체","유산소"];
+
+  const onTypePress = () => {
+    if (Platform.OS === 'android') {
+      setModalVisible(true);
+      return;
+    }
+
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: [...type, '취소'],
+        cancelButtonIndex: type.length,
+      },
+      (buttonIndex) => {
+        if(buttonIndex != type.length){
+          setWorkoutType(type[buttonIndex]);
+        }
+      },
+    );
+  };
 
   return (
     <View style={styles.body}>
-      { 
-        isVisible && <WorkoutListAddBody onClose={toggleVisibility}/>
-      }
+      <WorkoutTypeModal
+        visible={modalVisible}
+        onClose={(type) => {
+          setModalVisible(false);
+          if(type != ''){
+            setWorkoutType(type);
+          }
+        }}
+      />
       <View style={styles.listView}>
         <TouchableOpacity onPress={() => navigation.pop()} >
           <Text style={styles.close}>닫기</Text>
@@ -27,13 +53,13 @@ function WorkoutAddScreen({navigation}) {
       <View style={styles.separator}/>
       <View style={styles.block}>
         <View style={styles.workoutGroupView}>
-          <TouchableOpacity onPress={toggleVisibility}>
+          <TouchableOpacity onPress={onTypePress}>
             <View style={styles.workoutGroup}>
-              <Text style={styles.workoutGroupText}>상체</Text>
+              <Text style={styles.workoutGroupText}>{workoutType}</Text>
             </View>
           </TouchableOpacity>
           <View style={styles.workoutType}>
-            <Text style={styles.workoutTypeText}>가슴</Text>
+            <Text style={styles.workoutTypeText}>{workoutSubType}</Text>
           </View>
         </View>
         <TextInput 

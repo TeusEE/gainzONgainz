@@ -36,26 +36,18 @@ function CalendarView() {
   }  
   return(
     <Calendar
-      style={styles.calendar}
       markedDates = {test_date}
       onDayPress = {(day) => {
         setWorkoutDate(day.dateString)
       }}
       theme = {{
-        selectedDayBackgroundColor: '#009688',
-        arrowColor: '#009688',
+        selectedDayBackgroundColor: '#020204',
+        arrowColor: '#020204',
         dotColor: '#009688',
-        todayTextColor: '#009688',
+        todayTextColor: '#8F00FF',
       }}
     />
   )
 }
-
-const styles = StyleSheet.create({
-  calendar: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-});
 
 export default CalendarView;
