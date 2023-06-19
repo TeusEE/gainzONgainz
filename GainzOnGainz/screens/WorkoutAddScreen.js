@@ -1,7 +1,8 @@
 import React, { useEffect, useState} from 'react';
 import {Text, StyleSheet, View, TextInput, TouchableOpacity,ActionSheetIOS} from 'react-native';
-import WorkoutAddListItem from '../components/WorkoutAddListItem';
-import WorkoutTypeModal from '../components/WorkoutTypeModal';
+import WorkoutAddListItem from '../components/workout/WorkoutAddListItem';
+import WorkoutTypeModal from '../components/workout/WorkoutTypeModal';
+import { FlatList } from 'react-native-gesture-handler';
 
 function WorkoutAddScreen({navigation}) {
   const [workoutType, setWorkoutType] = useState('상체');

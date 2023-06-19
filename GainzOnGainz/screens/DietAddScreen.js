@@ -5,7 +5,7 @@ import {format} from 'date-fns';
 import AsyncStorage from '@react-native-community/async-storage';
 import ImagePickerItem from '../components/ImagePicker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Separator } from '../components/WorkoutList';
+import { Separator } from '../components/workout/WorkoutList';
 
 const day_conv = ['일', '월', '화', '수', '목', '금', '토'];
 const show_date = (date) => {

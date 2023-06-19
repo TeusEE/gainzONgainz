@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import {Text, StyleSheet, View} from 'react-native';
 import WorkoutListItem from "./WorkoutListItem";
 import { FlatList } from "react-native-gesture-handler";
-import WorkoutContext from "../contexts/WorkoutContext";
+import WorkoutContext from "../../contexts/WorkoutContext";
 
 function WorkoutList() {
     const {workout, setWorkout} = useContext(WorkoutContext);

@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, FlatList, Text} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {format} from 'date-fns';
-import DietDateContext from '../contexts/DietDateContext';
+import DietDateContext from '../../contexts/DietDateContext';
 import DietListItem from './DietListItem';
 
 

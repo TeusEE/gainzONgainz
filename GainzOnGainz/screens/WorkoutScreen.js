@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View} from 'react-native';
-import WorkoutList from '../components/WorkoutList';
+import WorkoutList from '../components/workout/WorkoutList';
 import CalendarView from '../components/CalendarView'
 import WorkoutContext, { WorkoutContextProvider } from '../contexts/WorkoutContext';
 import ImagePickerItem from '../components/ImagePicker';
