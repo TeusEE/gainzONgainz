@@ -2,7 +2,6 @@ import React, { useContext, useState} from 'react';
 import {Text, StyleSheet, View, TextInput, TouchableOpacity,ActionSheetIOS} from 'react-native';
 import { Workout, WorkoutDetails } from '../object/workout';
 import { FlatList } from 'react-native-gesture-handler';
-import {format} from 'date-fns';
 import WorkoutAddListItem from '../components/workout/WorkoutAddListItem';
 import WorkoutTypeModal from '../components/workout/WorkoutTypeModal';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -16,7 +15,7 @@ function WorkoutAddScreen({navigation}) {
 
   const [name, setName] = useState('');
 
-  const [workoutDetail, setWorkoutDetail] = useState([WorkoutDetails]);
+  const [workoutDetail, setWorkoutDetail] = useState([new WorkoutDetails]);
   
   const [modalVisible, setModalVisible] = useState(false);
   const [mainType, setMainType] = useState(true);
@@ -74,9 +73,9 @@ function WorkoutAddScreen({navigation}) {
     );
   };
 
-  const onChange = (text) => {
+  function onChange(text, title) {
     let dtails = workoutDetail;
-
+    console.log(JSON.stringify(workoutDetail))
     switch (title) {
       case "무게":
         dtails[0].weight = Number.parseInt(text);
@@ -120,7 +119,7 @@ function WorkoutAddScreen({navigation}) {
       // 오류 예외 처리
       console.log(e)
     }
-     console.log(data_form);
+    console.log(JSON.stringify(data_form))
   };
 
   const addWorkoutDetail = () => {
@@ -177,7 +176,7 @@ function WorkoutAddScreen({navigation}) {
           data={workoutDetail}
           showsHorizontalScrollIndicator={false}
           ItemSeparatorComponent={FlatListItemSeperator}
-          renderItem={({item}) => (
+          renderItem={({item, index}) => (
             <WorkoutAddListItem onChange={onChange} value={item}/>
           )}
       />

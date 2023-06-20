@@ -1,32 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Text, StyleSheet, View, TextInput} from 'react-native';
-import { WorkoutDetails } from '../../object/workout';
 
-function WorkoutAddListItem({value = WorkoutDetails}) {
+function WorkoutAddListItem({onChange}) {
+  useEffect(() => {
+    onChange;
+  });
+
   return (
     <View style={styles.block}>
-          <WorkoutInfoItem value={value} title="무게" unit="KG" hint="25"/>
-          <WorkoutInfoItem value={value} title="횟수" unit="회" hint="5"/>
-          <WorkoutInfoItem value={value} title="휴식" unit="초" hint="30"/>
+          <WorkoutInfoItem onChange={onChange} title="무게" unit="KG" hint="25"/>
+          <WorkoutInfoItem onChange={onChange}  title="횟수" unit="회" hint="5"/>
+          <WorkoutInfoItem onChange={onChange}  title="휴식" unit="초" hint="30"/>
     </View>
   );
 }
 
-function WorkoutInfoItem({value = WorkoutDetails, title, unit, hint}) {
-  const onChange = (text) => {
-    switch (title) {
-      case "무게":
-        value.prototype.weight = Number.parseInt(text);
-        break;
-      case "횟수":
-        value.prototype.number = Number.parseInt(text);
-        break;
-      case "휴식":
-        value.prototype.rest = Number.parseInt(text);
-        break;
-    }
-  };
-
+function WorkoutInfoItem({onChange, title, unit, hint}) {
   return (
     <View>
         <Text style={styles.title}>{title}</Text>
@@ -35,7 +24,7 @@ function WorkoutInfoItem({value = WorkoutDetails, title, unit, hint}) {
                 placeholder={hint}
                 keyboardType='numeric'
                 maxLength={3} 
-                onChangeText={onChange}
+                onChangeText={(text) => onChange(text, title)}
                 />
            <Text>{unit}</Text>
         </View>
