@@ -1,11 +1,16 @@
-import React, { useEffect, useState} from 'react';
+import React, { useContext, useState} from 'react';
 import {Text, StyleSheet, View, TextInput, TouchableOpacity,ActionSheetIOS} from 'react-native';
-import WorkoutAddListItem from '../components/workout/WorkoutAddListItem';
-import WorkoutTypeModal from '../components/workout/WorkoutTypeModal';
 import { Workout, WorkoutDetails } from '../object/workout';
 import { FlatList } from 'react-native-gesture-handler';
+import {format} from 'date-fns';
+import WorkoutAddListItem from '../components/workout/WorkoutAddListItem';
+import WorkoutTypeModal from '../components/workout/WorkoutTypeModal';
+import AsyncStorage from '@react-native-community/async-storage';
+import asyncLoad from '../common/asyncStorage';
+import WorkoutContext from '../contexts/WorkoutContext';
 
 function WorkoutAddScreen({navigation}) {
+  const {workoutDate, setWorkoutDate} = useContext(WorkoutContext);
   const [type, setType] = useState('상체');
   const [subType, setSubType] = useState('어깨');
 
@@ -69,15 +74,53 @@ function WorkoutAddScreen({navigation}) {
     );
   };
 
-  const onSave = () => {
-    var newWorkout = new Workout(
+  const onChange = (text) => {
+    let dtails = workoutDetail;
+
+    switch (title) {
+      case "무게":
+        dtails[0].weight = Number.parseInt(text);
+        break;
+      case "횟수":
+        dtails[0].number = Number.parseInt(text);
+        break;
+      case "휴식":
+        dtails[0].rest = Number.parseInt(text);
+        break;
+    }
+
+    setWorkoutDetail(dtails)
+  };
+
+  const onSave = async () => {
+    var newWorkout = JSON.stringify(new Workout(
       { name:name,
         type:type, 
         subType:subType, 
-        date:Date(), 
+        date:workoutDate, 
         workoutList:workoutDetail}
-    );
-     console.log(newWorkout);
+    ));
+
+    let temp = await asyncLoad('workout')
+    temp = JSON.parse(temp) ?? {}
+    let pre_data = Object.keys(temp).includes(workoutDate) ? temp[workoutDate] : []
+    let data_form = {
+        ...temp,
+        [workoutDate] : [
+          ...pre_data,
+          newWorkout
+        ]
+    }
+    
+    try {
+      await AsyncStorage.setItem('workout', JSON.stringify(data_form));
+      console.log("save complete")
+      navigation.pop();
+    } catch (e) {
+      // 오류 예외 처리
+      console.log(e)
+    }
+     console.log(data_form);
   };
 
   const addWorkoutDetail = () => {
@@ -131,12 +174,12 @@ function WorkoutAddScreen({navigation}) {
             onChangeText={setName}/>
         <View style={styles.separator}/>
         <FlatList
-        data={workoutDetail}
-        showsHorizontalScrollIndicator={false}
-        ItemSeparatorComponent={FlatListItemSeperator}
-        renderItem={({item}) => (
-          <WorkoutAddListItem value={item}/>
-        )}
+          data={workoutDetail}
+          showsHorizontalScrollIndicator={false}
+          ItemSeparatorComponent={FlatListItemSeperator}
+          renderItem={({item}) => (
+            <WorkoutAddListItem onChange={onChange} value={item}/>
+          )}
       />
         
         <TouchableOpacity onPress={addWorkoutDetail}>

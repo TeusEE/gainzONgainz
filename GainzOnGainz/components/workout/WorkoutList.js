@@ -1,11 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {Text, StyleSheet, View} from 'react-native';
 import WorkoutListItem from "./WorkoutListItem";
 import { FlatList } from "react-native-gesture-handler";
 import WorkoutContext from "../../contexts/WorkoutContext";
+import asyncLoad from "../../common/asyncStorage";
 
 function WorkoutList() {
     const {workout, setWorkout} = useContext(WorkoutContext);
+    
+    useEffect(() => {
+        async function getWorkout() { 
+            let workout = await asyncLoad("workout", debug = false)
+            setWorkout(workout);
+        }
+        getWorkout(); 
+    }, [workout]) 
+
 
     return (
         <View>
@@ -13,16 +23,16 @@ function WorkoutList() {
                 <Separator/>
                 <Text style={styles.dateText}>일, 3월 25</Text>
             </View>
-            { workout.length > 0 ? 
+            { workout != undefined && workout.length > 0 ? 
                 (
                     <View style={styles.listContiner}>
                         <View style={styles.workContiner}>
                             <Text style={styles.workText}>상체</Text>
                         </View>
                         <FlatList
-                            data={["",""]}
+                            data={workout}
                             renderItem={({item}) => (
-                                <WorkoutListItem/>
+                                <WorkoutListItem />
                             )}
                         />
                     </View>

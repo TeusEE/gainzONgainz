@@ -2,10 +2,11 @@ import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, View, Button, TextInput} from 'react-native';
 import DietDateContext from '../contexts/DietDateContext';
 import {format} from 'date-fns';
-import AsyncStorage from '@react-native-community/async-storage';
 import ImagePickerItem from '../components/ImagePicker';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Separator } from '../components/workout/WorkoutList';
+import AsyncStorage from '@react-native-community/async-storage';
+import asyncLoad from '../common/asyncStorage';
 
 const day_conv = ['일', '월', '화', '수', '목', '금', '토'];
 const show_date = (date) => {
@@ -21,21 +22,8 @@ const show_date = (date) => {
 };
 
 
-const async_load = async (debug = false) => {
-    try{
-        const value = await AsyncStorage.getItem("dietdata")
-        if (debug){
-            console.log(value)
-        }
-        return value
-    } catch(e) {
-        console.log(e)
-    }
-    
-}
-
 const async_save = async (day, data,image, navi) => {
-    let temp = await async_load()
+    let temp = await asyncLoad("dietdata")
     temp = JSON.parse(temp)??{}
     _date = format(day, "yyyy-MM-dd")
     _time = format(day, "HH:mm:ss")
@@ -61,15 +49,6 @@ const async_save = async (day, data,image, navi) => {
     }
 }
 
-const async_clear = async () => {
-    try{
-        await AsyncStorage.clear()
-        console.log("clear async_storage complete")
-    } catch (e) {
-        console.log(e)
-    }
-}
-
 
 const DietScreen = ({navigation}) => {
     const {dietdate, image} = useContext(DietDateContext)
@@ -85,7 +64,7 @@ const DietScreen = ({navigation}) => {
                         <View style = {styles.datestyle} >
                             <Text>{show_date(dietdate)}</Text>
                         </View>
-                        <Button title = "see_data" onPress={()=>async_load(debug = true)}/>
+                        <Button title = "see_data" onPress={()=>asyncLoad("dietdata",debug = true)}/>
                 
 
                         <TouchableOpacity
