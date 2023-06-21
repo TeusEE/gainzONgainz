@@ -1,41 +1,50 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {Text, StyleSheet, View} from 'react-native';
 import WorkoutListItem from "./WorkoutListItem";
 import { FlatList } from "react-native-gesture-handler";
+import {format} from 'date-fns';
 import WorkoutContext from "../../contexts/WorkoutContext";
 import asyncLoad from "../../common/asyncStorage";
 
+
 function WorkoutList() {
-    const {workout, setWorkout} = useContext(WorkoutContext);
+    const {workout, workoutDate} = useContext(WorkoutContext);
+    const [dayWorkout, setDayWorkout] = useState([]);
     
     useEffect(() => {
         async function getWorkout() { 
             let workout = await asyncLoad("workout", debug = false)
-            setWorkout(workout);
+            const convertData = JSON.parse(workout)[workoutDate] ?? []
+            setDayWorkout(convertData);
         }
         getWorkout(); 
-    }, [workout]) 
+    }, [workout, workoutDate]) 
 
 
     return (
         <View>
             <View style={styles.dateLineContainer}>
                 <Separator/>
-                <Text style={styles.dateText}>일, 3월 25</Text>
+                <Text style={styles.dateText}>{format(new Date(workoutDate), "E, M월 dd")}</Text>
             </View>
-            { workout != undefined && workout.length > 0 ? 
+            { dayWorkout != undefined && dayWorkout.length > 0 ? 
                 (
-                    <View style={styles.listContiner}>
-                        <View style={styles.workContiner}>
-                            <Text style={styles.workText}>상체</Text>
-                        </View>
-                        <FlatList
-                            data={workout}
-                            renderItem={({item}) => (
-                                <WorkoutListItem />
-                            )}
+                    <FlatList
+                            data={dayWorkout}
+                            renderItem={({item}) => {
+                                let parseWorkout = JSON.parse(item);
+                                return (
+                                    <View style={styles.listContiner}>
+                                        <View style={styles.typeContiner}>
+                                            <Text style={styles.workText}>
+                                                {parseWorkout.type}
+                                            </Text>
+                                        </View>
+                                        <WorkoutListItem value={parseWorkout}/>
+                                    </View>
+                                );
+                            }}
                         />
-                    </View>
                 )
                 : <EmptyList/>
             }
@@ -53,9 +62,8 @@ export const Separator = () => (
 
 const styles = StyleSheet.create({
     listContiner:{
-        flex:1,
         marginHorizontal:26,
-        marginBottom:16
+        marginBottom:16,
     },
     separator:{
         width: "100%",
@@ -77,7 +85,7 @@ const styles = StyleSheet.create({
         backgroundColor:"#FFF",
         color:"#BDBDBD"
     },
-    workContiner:{
+    typeContiner:{
         width: 52,
         height: 25,
         justifyContent: 'center',

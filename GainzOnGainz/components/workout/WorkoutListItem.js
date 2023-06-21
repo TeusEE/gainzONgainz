@@ -1,16 +1,30 @@
 import React from "react";
 import {Text, StyleSheet, View} from 'react-native';
+import { FlatList } from "react-native-gesture-handler";
 
-function WorkoutListItem({type, name, weight, count}) {
+function WorkoutListItem({value}) {
     return (
         <View style={styles.block}>
-            <View style={styles.workTypeContiner}>
-                <Text style={styles.workTypeText}>가슴</Text>
+            <View style={styles.labelBlock}>
+                <View style={styles.label}>
+                    <Text style={styles.workTypeText}>{value.subType}</Text>
+                </View>
             </View>
-            <Text style={styles.text}>운동명</Text>
-            <View style={styles.subInfoContainer}>
-                <Text style={styles.text}>00KG</Text>
-                <Text style={[styles.text && styles.lastText]}>00회</Text>
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>{value.name}</Text>
+                <FlatList
+                    data={value.workoutList}           
+                    renderItem={({item}) => {
+                        return (
+                            <View style={styles.subInfoContainer}>
+                            <Text style={styles.text}>{item.weight}KG</Text>
+                                <Text style={[styles.text && styles.lastText]}>
+                                    {item.number}회
+                                </Text>
+                            </View>
+                        );
+                    }}
+                />            
             </View>
         </View>
     )
@@ -20,27 +34,39 @@ const styles = StyleSheet.create({
     block:{
         flex:1,
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent:'space-between',
+        marginBottom:8
     },
     subInfoContainer:{
         flexDirection: 'row',
-        alignItems: 'center',
+        alignSelf: 'flex-end',
+        marginBottom: 10
+    },
+    textContainer:{
+        flex:1,
+        flexDirection: 'row',
+        marginLeft:20,
+        marginTop:4
     },
     text:{
         fontSize:15,
     },
     lastText:{
-        marginLeft:30
+        width:45,
+        marginLeft:30,
+        textAlign:'right'
     },
-    workTypeContiner:{
-        width: 52,
+    label:{
+        alignSelf: 'flex-start',
         height: 25,
         justifyContent: 'center',
         borderWidth: 1,
         borderRadius: 36,
         borderStyle: 'solid',
-        marginBottom:8
+        paddingHorizontal:12
+    },
+    labelBlock:{
+        width:100,
     },
     workTypeText:{
         fontWeight:"600",

@@ -3,7 +3,7 @@ export class Workout {
     public type:String = '';
     public subType:String = '';
     public date:String = '';
-    workoutList : Array<WorkoutDetails>;     
+    public workoutList : Array<WorkoutDetails>;     
 
     constructor(data: Partial<Workout>) {
       Object.assign(this, data);
