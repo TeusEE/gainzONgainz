@@ -73,22 +73,20 @@ function WorkoutAddScreen({navigation}) {
     );
   };
 
-  function onChange(text, title) {
-    let dtails = workoutDetail;
-    console.log(JSON.stringify(workoutDetail))
+  function onChange(text, title, index) {
+    let details = workoutDetail;
     switch (title) {
       case "무게":
-        dtails[0].weight = Number.parseInt(text);
+        details[index].weight = Number.parseInt(text);
         break;
       case "횟수":
-        dtails[0].number = Number.parseInt(text);
+        details[index].number = Number.parseInt(text);
         break;
       case "휴식":
-        dtails[0].rest = Number.parseInt(text);
+        details[index].rest = Number.parseInt(text);
         break;
     }
-
-    setWorkoutDetail(dtails)
+    setWorkoutDetail(details)
   };
 
   const onSave = async () => {
@@ -123,7 +121,7 @@ function WorkoutAddScreen({navigation}) {
   };
 
   const addWorkoutDetail = () => {
-    setWorkoutDetail([...workoutDetail, WorkoutDetails]);
+    setWorkoutDetail([...workoutDetail, new WorkoutDetails]);
   }
 
   return (
@@ -177,7 +175,7 @@ function WorkoutAddScreen({navigation}) {
           showsHorizontalScrollIndicator={false}
           ItemSeparatorComponent={FlatListItemSeperator}
           renderItem={({item, index}) => (
-            <WorkoutAddListItem onChange={onChange} value={item}/>
+            <WorkoutAddListItem onChange={onChange} index={index}/>
           )}
       />
         

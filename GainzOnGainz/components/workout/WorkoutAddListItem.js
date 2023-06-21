@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import {Text, StyleSheet, View, TextInput} from 'react-native';
 
-function WorkoutAddListItem({onChange}) {
-  useEffect(() => {
-    onChange;
-  });
+function WorkoutAddListItem({onChange, index}) {
+  const onChangeText = (text, title) => {
+    onChange(text, title, index)
+  };
 
   return (
     <View style={styles.block}>
-          <WorkoutInfoItem onChange={onChange} title="무게" unit="KG" hint="25"/>
-          <WorkoutInfoItem onChange={onChange}  title="횟수" unit="회" hint="5"/>
-          <WorkoutInfoItem onChange={onChange}  title="휴식" unit="초" hint="30"/>
+          <WorkoutInfoItem onChange={onChangeText}
+            title="무게" unit="KG" hint="25"/>
+          <WorkoutInfoItem onChange={onChangeText}
+            title="횟수" unit="회" hint="5"/>
+          <WorkoutInfoItem onChange={onChangeText}
+            title="휴식" unit="초" hint="30"/>
     </View>
   );
 }
