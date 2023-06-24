@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
-import DrawerDateList from './../components/DrawerDateList';
-import DietList from './../components/DietList';
+import DrawerDateList from '../components/DrawerDateList';
+import DietList from '../components/diet/DietList';
 import AddItemBtn from '../components/AddItemBtn';
 import Recommend from '../components/Recommend';
 
