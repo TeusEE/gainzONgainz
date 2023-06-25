@@ -3,14 +3,13 @@ import {StyleSheet, View, FlatList, Text} from 'react-native';
 import {format} from 'date-fns';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DietDateContext from '../contexts/DietDateContext';
-//todo
-//setDietdate implement
 
 
 const TimePicker = ({mode, visible, settimepickMode, settimepickVisible}) => {
     const {dietdate, setDietdate} = useContext(DietDateContext);
-    const onConfirm = (_mode) => {
-        if (mode == "date"){
+    const onConfirm = (date, _mode) => {
+        setDietdate(date)
+        if (_mode == "date"){
             settimepickVisible(false)
             settimepickMode("time")
             settimepickVisible(true)
@@ -24,7 +23,7 @@ const TimePicker = ({mode, visible, settimepickMode, settimepickVisible}) => {
             <DateTimePickerModal 
                 isVisible={visible}
                 mode={mode}
-                onConfirm={() => onConfirm(mode)}
+                onConfirm={(date) => onConfirm(date, mode)}
                 onCancel={() => settimepickVisible(false)}
                 date={dietdate} 
             />
