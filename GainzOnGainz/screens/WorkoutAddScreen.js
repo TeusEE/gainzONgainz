@@ -6,10 +6,10 @@ import WorkoutAddListItem from '../components/workout/WorkoutAddListItem';
 import WorkoutTypeModal from '../components/workout/WorkoutTypeModal';
 import AsyncStorage from '@react-native-community/async-storage';
 import asyncLoad from '../common/asyncStorage';
-import WorkoutContext from '../contexts/WorkoutContext';
+import WorkoutContext, { WorkoutContextProvider } from '../contexts/WorkoutContext';
 
 function WorkoutAddScreen({navigation}) {
-  const {workoutDate, setWorkoutDate} = useContext(WorkoutContext);
+  const {workoutDate} = useContext(WorkoutContext);
   const [type, setType] = useState('상체');
   const [subType, setSubType] = useState('어깨');
 
@@ -99,7 +99,7 @@ function WorkoutAddScreen({navigation}) {
     ));
 
     let temp = await asyncLoad('workout')
-    temp = JSON.parse(temp) ?? {}
+    temp = JSON.parse(temp ?? {})
     let pre_data = Object.keys(temp).includes(workoutDate) ? temp[workoutDate] : []
     let data_form = {
         ...temp,
@@ -125,67 +125,69 @@ function WorkoutAddScreen({navigation}) {
   }
 
   return (
-    <View style={styles.body}>
-      <WorkoutTypeModal
-        value = {mainType ? workoutType : workoutSubType[type]}
-        visible={modalVisible}
-        onClose={(workoutType) => {
-          setModalVisible(false);
-          if(workoutType != ''){
-            if(mainType){
-              setType(workoutType);
-              setSubType(workoutSubType[workoutType][0]);
-            }else{
-              setSubType(workoutType);
+    <WorkoutContextProvider>
+      <View style={styles.body}>
+        <WorkoutTypeModal
+          value = {mainType ? workoutType : workoutSubType[type]}
+          visible={modalVisible}
+          onClose={(workoutType) => {
+            setModalVisible(false);
+            if(workoutType != ''){
+              if(mainType){
+                setType(workoutType);
+                setSubType(workoutSubType[workoutType][0]);
+              }else{
+                setSubType(workoutType);
+              }
             }
-          }
-        }}
-      />
-      <View style={styles.listView}>
-        <TouchableOpacity onPress={() => navigation.pop()} >
-          <Text style={styles.close}>닫기</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onSave}>
-          <View style={styles.saveView} >
-            <Text style={styles.saveText}>저장</Text>
+          }}
+        />
+        <View style={styles.listView}>
+          <TouchableOpacity onPress={() => navigation.pop()} >
+            <Text style={styles.close}>닫기</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onSave}>
+            <View style={styles.saveView} >
+              <Text style={styles.saveText}>저장</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <FlatListItemSeperator/>
+        <View style={styles.block}>
+          <View style={styles.workoutGroupView}>
+            <TouchableOpacity onPress={()=> onTypePress(true)}>
+              <View style={styles.workoutGroup}>
+                <Text style={styles.workoutGroupText}>{type}</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=> onTypePress(false)}>
+              <View style={styles.workoutType}>
+                <Text style={styles.workoutTypeText}>{subType}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <TextInput 
+              style={styles.workoutTitle}
+              placeholder="운동명"
+              onChangeText={setName}/>
+          <View style={styles.separator}/>
+          <FlatList
+            data={workoutDetail}
+            showsHorizontalScrollIndicator={false}
+            ItemSeparatorComponent={FlatListItemSeperator}
+            renderItem={({item, index}) => (
+              <WorkoutAddListItem onChange={onChange} index={index}/>
+            )}
+        />
+          
+          <TouchableOpacity onPress={addWorkoutDetail}>
+          <View style={styles.addButtonView}>
+            <Text style={styles.addButtonText}>세트 추가하기</Text>
           </View>
         </TouchableOpacity>
-      </View>
-      <FlatListItemSeperator/>
-      <View style={styles.block}>
-        <View style={styles.workoutGroupView}>
-          <TouchableOpacity onPress={()=> onTypePress(true)}>
-            <View style={styles.workoutGroup}>
-              <Text style={styles.workoutGroupText}>{type}</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=> onTypePress(false)}>
-            <View style={styles.workoutType}>
-              <Text style={styles.workoutTypeText}>{subType}</Text>
-            </View>
-          </TouchableOpacity>
         </View>
-        <TextInput 
-            style={styles.workoutTitle}
-            placeholder="운동명"
-            onChangeText={setName}/>
-        <View style={styles.separator}/>
-        <FlatList
-          data={workoutDetail}
-          showsHorizontalScrollIndicator={false}
-          ItemSeparatorComponent={FlatListItemSeperator}
-          renderItem={({item, index}) => (
-            <WorkoutAddListItem onChange={onChange} index={index}/>
-          )}
-      />
-        
-        <TouchableOpacity onPress={addWorkoutDetail}>
-        <View style={styles.addButtonView}>
-          <Text style={styles.addButtonText}>세트 추가하기</Text>
-        </View>
-      </TouchableOpacity>
       </View>
-    </View>
+    </WorkoutContextProvider>
   );
 
 }
