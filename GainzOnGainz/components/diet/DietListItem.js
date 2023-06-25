@@ -1,27 +1,34 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
-const update_data = async () => {
-  //todo
-  //데이터 삭제하기 or 수정하기 기능 구현필요
+import DietListItemCrudModal from './DietListItemCrudModal';
+const update_data = async (setter) => {
+  setter(true)
 };
 
 const DietListItem = ({time, data, image}) => {
   let dis_time = time.substring(0, 2) + ':' + time.substring(3, 5) + '';
+  let [modal_visible, setModal_visible] = useState(false)
   return (
-    <Pressable
-      onPress={() => {
-        update_data();
-      }}>
-      <View style={styles.block}>
-        <Text style={styles.time}>{dis_time}</Text>
-        <Text style={styles.content}>{data}</Text>
-        {image !== '' ? (
-          <Image style={styles.imageContainer} source={{uri: image}} />
-        ) : (
-          <></>
-        )}
-      </View>
-    </Pressable>
+    <>
+      <Pressable
+        onPress={() => {
+          update_data(setModal_visible);
+        }}>
+        <View style={styles.block}>
+          <Text style={styles.time}>{dis_time}</Text>
+          <Text style={styles.content}>{data}</Text>
+          {image !== '' ? (
+            <Image style={styles.imageContainer} source={{uri: image}} />
+          ) : (
+            <></>
+          )}
+        </View>
+      </Pressable>
+      <DietListItemCrudModal
+        visible = {modal_visible}
+        visible_setter = {setModal_visible}
+      />
+    </>
   );
 };
 

@@ -7,15 +7,16 @@ import DietDateContext from '../contexts/DietDateContext';
 
 const TimePicker = ({mode, visible, settimepickMode, settimepickVisible}) => {
     const {dietdate, setDietdate} = useContext(DietDateContext);
-    const onConfirm = (date, _mode) => {
-        setDietdate(date)
+    const onConfirm = (date, _mode) => {    
         if (_mode == "date"){
             settimepickVisible(false)
+            setDietdate(date)
             settimepickMode("time")
             settimepickVisible(true)
         } else {
-            settimepickVisible(false)
+            setDietdate(date)
             settimepickMode("date")
+            settimepickVisible(false)
         }
     }
     return (
@@ -33,15 +34,7 @@ const TimePicker = ({mode, visible, settimepickMode, settimepickVisible}) => {
 
 
 const styles = StyleSheet.create({
-    block: {
-      width : "100%",
-      justifyContent : "center"
-    },
-    emptyList:{
-      color:"#BDBDBD",
-      textAlign: 'center',
-    },
-  });
+});
   
-  export default TimePicker;
+export default TimePicker;
   

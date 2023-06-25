@@ -54,8 +54,8 @@ const async_save = async (day, data,image, navi) => {
 const DietScreen = ({navigation}) => {
     const {dietdate, image} = useContext(DietDateContext)
     const [value, onChangeText] = useState(``)
-    const [timepick_mode, settimepickMode] = useState('date'); // 모달 유형
-    const [timepick_visible, settimepickVisible] = useState(false); // 모달 노출 여부
+    const [timepick_mode, settimepickMode] = useState('date'); 
+    const [timepick_visible, settimepickVisible] = useState(false); 
 
     return (
         <View style={styles.mainBlock}>
