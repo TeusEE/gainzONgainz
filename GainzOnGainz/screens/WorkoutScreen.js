@@ -2,24 +2,21 @@ import React from 'react';
 import { StyleSheet, View} from 'react-native';
 import WorkoutList from '../components/workout/WorkoutList';
 import CalendarView from '../components/CalendarView'
-import WorkoutContext, { WorkoutContextProvider } from '../contexts/WorkoutContext';
-import ImagePickerItem from '../components/ImagePicker';
 import AddItemBtn from '../components/AddItemBtn';
 
 function WorkoutScreen({navigation}) {
   return (
-    <WorkoutContextProvider>
+    <View style={styles.block}>
       <View style={styles.block_calendar}>
         <CalendarView/>
       </View>
       <View style={styles.block}>
         <WorkoutList/>
+      </View>
+      <View style={styles.addBtn}>
         <AddItemBtn onEvent={() => navigation.navigate('add')} />
       </View>
-      <View style={styles.footer}>
-        <ImagePickerItem context={WorkoutContext}/>
-      </View>
-    </WorkoutContextProvider>
+    </View>
   );
 }
 
@@ -33,6 +30,10 @@ const styles = StyleSheet.create({
   footer:{
     height: 120,
     paddingLeft: 20,
+    backgroundColor:"#FFF"
+  },
+  addBtn:{
+    height:120,
     backgroundColor:"#FFF"
   }
 });
