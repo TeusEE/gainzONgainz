@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 import WorkoutListItem from "./WorkoutListItem";
 import { FlatList } from "react-native-gesture-handler";
 import {format} from 'date-fns';
@@ -14,11 +14,19 @@ function WorkoutList() {
     useEffect(() => {
         async function getWorkout() { 
             let workout = await asyncLoad("workout", debug = false)
-            const convertData = JSON.parse(workout)[workoutDate] ?? []
+            let convertData = [];
+            if(workout != null){
+                convertData = JSON.parse(workout)[workoutDate] ?? []
+            }
             setDayWorkout(convertData);
         }
         getWorkout(); 
     }, [workout, workoutDate]) 
+
+    const onLongPress = () => {
+        console.log("asd");
+    };
+
 
 
     return (
@@ -34,14 +42,16 @@ function WorkoutList() {
                             renderItem={({item}) => {
                                 let parseWorkout = JSON.parse(item);
                                 return (
-                                    <View style={styles.listContiner}>
-                                        <View style={styles.typeContiner}>
-                                            <Text style={styles.workText}>
-                                                {parseWorkout.type}
-                                            </Text>
+                                    <TouchableOpacity onLongPress={onLongPress}>
+                                        <View style={styles.listContiner}>
+                                            <View style={styles.typeContiner}>
+                                                <Text style={styles.workText}>
+                                                    {parseWorkout.type}
+                                                </Text>
+                                            </View>
+                                            <WorkoutListItem value={parseWorkout}/>
                                         </View>
-                                        <WorkoutListItem value={parseWorkout}/>
-                                    </View>
+                                    </TouchableOpacity>
                                 );
                             }}
                         />

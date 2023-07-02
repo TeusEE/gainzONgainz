@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Separator } from '../components/workout/WorkoutList';
 import AsyncStorage from '@react-native-community/async-storage';
 import asyncLoad from '../common/asyncStorage';
+import TimePicker from '../components/TimePicker'
 
 const day_conv = ['일', '월', '화', '수', '목', '금', '토'];
 const show_date = (date) => {
@@ -53,6 +54,9 @@ const async_save = async (day, data,image, navi) => {
 const DietScreen = ({navigation}) => {
     const {dietdate, image} = useContext(DietDateContext)
     const [value, onChangeText] = useState(``)
+    const [timepick_mode, settimepickMode] = useState('date'); 
+    const [timepick_visible, settimepickVisible] = useState(false); 
+
     return (
         <View style={styles.mainBlock}>
             <View>
@@ -61,9 +65,11 @@ const DietScreen = ({navigation}) => {
                     <Text style={styles.close}>닫기</Text>
                     </TouchableOpacity>
                     <View style = {styles.headerRow}>
-                        <View style = {styles.datestyle} >
-                            <Text>{show_date(dietdate)}</Text>
-                        </View>
+                        <TouchableOpacity onPress={() => settimepickVisible(true)}>
+                            <View style = {styles.datestyle} >
+                                <Text>{show_date(dietdate)}</Text>
+                            </View>
+                        </TouchableOpacity>
                         <Button title = "see_data" onPress={()=>asyncLoad("dietdata",debug = true)}/>
                 
 
@@ -91,6 +97,13 @@ const DietScreen = ({navigation}) => {
             <View style={styles.footer}>
                 <ImagePickerItem context={DietDateContext}/>
             </View>
+
+            <TimePicker
+                mode = {timepick_mode}
+                visible = {timepick_visible}
+                settimepickMode = {settimepickMode}
+                settimepickVisible = {settimepickVisible}
+            />
         </View>
     )
 }

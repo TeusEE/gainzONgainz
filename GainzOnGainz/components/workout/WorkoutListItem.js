@@ -4,29 +4,35 @@ import { FlatList } from "react-native-gesture-handler";
 
 function WorkoutListItem({value}) {
     return (
-        <View style={styles.block}>
-            <View style={styles.labelBlock}>
-                <View style={styles.label}>
-                    <Text style={styles.workTypeText}>{value.subType}</Text>
+        <>
+            <View style={styles.block}>
+                <View style={styles.labelBlock}>
+                    <View style={styles.label}>
+                        <Text style={styles.workTypeText}>{value.subType}</Text>
+                    </View>
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>{value.name}</Text>
+                    <FlatList
+                        data={value.workoutList}           
+                        renderItem={({item}) => {
+                            return (
+                                <View style={styles.subInfoContainer}>
+                                    <Text style={styles.text}>{item.weight}KG</Text>
+                                    <Text style={[styles.text && styles.lastText]}>
+                                        {item.number}회
+                                    </Text>
+                                    <Text style={[styles.text && styles.lastText]}>
+                                        {item.rest}초
+                                    </Text>
+                                </View>
+                            );
+                        }}
+                    />            
                 </View>
             </View>
-            <View style={styles.textContainer}>
-                <Text style={styles.text}>{value.name}</Text>
-                <FlatList
-                    data={value.workoutList}           
-                    renderItem={({item}) => {
-                        return (
-                            <View style={styles.subInfoContainer}>
-                            <Text style={styles.text}>{item.weight}KG</Text>
-                                <Text style={[styles.text && styles.lastText]}>
-                                    {item.number}회
-                                </Text>
-                            </View>
-                        );
-                    }}
-                />            
-            </View>
-        </View>
+            <View style={styles.separator}/>
+        </>
     )
 }
 
@@ -36,6 +42,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'space-between',
         marginBottom:8
+    },
+    separator:{
+        marginTop:6,
+        width: "100%",
+        borderWidth: 0.5,
+        borderStyle: 'solid',
+        borderColor:"#E5E5E5"
     },
     subInfoContainer:{
         flexDirection: 'row',
@@ -53,7 +66,7 @@ const styles = StyleSheet.create({
     },
     lastText:{
         width:45,
-        marginLeft:30,
+        marginLeft:10,
         textAlign:'right'
     },
     label:{
