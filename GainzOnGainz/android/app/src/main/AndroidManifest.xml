@@ -12,6 +12,11 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <resources>
+        <string name="app_name">득근득근</string>
+        <string name="kakao_app_key">3dbc145faf00592016864c8972620e3f</string>
+      </resources>
+
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
